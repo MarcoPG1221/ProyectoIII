@@ -11,8 +11,8 @@ public class Orden {
     private String nombre;
     private String apellido;
     private String direccion;
-    private ItemOrden item1;
-    private ItemOrden item2;
+    private itemOrden1 item1;
+    private itemOrden1 item2;
     private Date fechaOrden;
     private double precioEnvio;
     private double total;
@@ -22,28 +22,33 @@ public class Orden {
     private static int sigIdOrden = 1;
     private int diasEnvio;
     private Producto pro;
+    private int codigo;
+    private String nombre_pro;
+    private Double precio_pro;
+    private int cantidad;
     
     //Creamos un primer constructor con solo el id, total y fechaOrden
     public Orden(){
         this.id = sigIdOrden++;
-        this.total = 0.0;
         this.fechaOrden = new Date();
     }
     
-    public Orden(Date pFecha, double precioEnvio, String tipoEnvio, int diasEnvio,
-            String nombre, String apellidos, String direccion, Producto pro, ItemOrden orden){
+    public Orden(double precioEnvio, String tipoEnvio, int diasEnvio,
+            String nombre, String apellidos, String direccion, int codigo, String nombre_pro,
+            Double precio_pro, int cantidad){
         this(); //llamada al contructor sin parametros
-        this.fechaOrden = pFecha;
         this.precioEnvio = precioEnvio;
         this.tipoEnvio = tipoEnvio;
         this.diasEnvio = diasEnvio;
         this.nombre = nombre;
         this.apellido = apellidos;
         this.direccion = direccion;
-        this.pro = pro;
-        this.item1 = orden;
+        this.codigo = codigo;
+        this.nombre_pro = nombre_pro;
+        this.precio_pro = precio_pro;
+        this.cantidad = cantidad;
     }
-
+    
     public Orden(int id, Date pFecha, double precioEnvio, String tipoEnvio, int diasEnvio,
             String nombre, String apellidos, String direccion, String estado){
         this.id = id;
@@ -121,14 +126,6 @@ public class Orden {
         this.estado_Compra = estado;
     }
 
-    public static int getSigIdOrden() {
-        return sigIdOrden;
-    }
-
-    public static void setSigIdOrden(int sigIdOrden) {
-        Orden.sigIdOrden = sigIdOrden;
-    }
-
     public int getDiasEnvio() {
         return diasEnvio;
     }
@@ -152,6 +149,40 @@ public class Orden {
     public int getId() {
         return id;
     }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getNombre_pro() {
+        return nombre_pro;
+    }
+
+    public void setNombre_pro(String nombre_pro) {
+        this.nombre_pro = nombre_pro;
+    }
+
+    public Double getPrecio_pro() {
+        return precio_pro;
+    }
+
+    public void setPrecio_pro(Double precio_pro) {
+        this.precio_pro = precio_pro;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+    
+    
     
     public String fechaSeteada(){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

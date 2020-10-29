@@ -23,8 +23,8 @@ public class ClientesDAO {
      * Método para obtener todos los registros de la base de datos como objetos
      * @return List de Cliente
     */
-    public List<Cliente> getDBClienteIndividual(){
-        List<Cliente> clienteIndividual = new ArrayList<>();
+    public List<Individual> getDBClienteIndividual(){
+        List<Individual> clienteIndividual = new ArrayList<>();
         try {
             Statement statement = BasedeDatos.conn.createStatement();
             String consulta = " SELECT id, nombres, apellidos, direccion, dpi"+
@@ -40,21 +40,21 @@ public class ClientesDAO {
         return clienteIndividual;
     }
     
-    public List<Cliente> getDBClienteEmpresa(){
-        List<Cliente> clienteIndividual = new ArrayList<Cliente>();
+    public List<Empresa> getDBClienteEmpresa(){
+        List<Empresa> clienteEmpresa = new ArrayList<Empresa>();
         try {
             Statement statement = BasedeDatos.conn.createStatement();
             String consulta = " SELECT id, nombres, apellidos, direccion, contacto"+
                               " FROM empresa";
             ResultSet rs = statement.executeQuery(consulta);
             while(rs.next()){
-                clienteIndividual.add(new Empresa(rs.getInt("id"),rs.getString("nombres"),rs.getString("apellidos"),
+                clienteEmpresa.add(new Empresa(rs.getInt("id"),rs.getString("nombres"),rs.getString("apellidos"),
                 rs.getString("direccion"),rs.getString("contacto")));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return clienteIndividual;
+        return clienteEmpresa;
     }
     /**
      * Método que sirve para guardar un registro de tipo cliente en la base de datos

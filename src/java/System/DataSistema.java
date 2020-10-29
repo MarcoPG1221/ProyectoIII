@@ -24,7 +24,7 @@ public class DataSistema {
     public static List<Producto> productos1;
     public static List<Orden> orden;
     public static Producto pro;
-    public static ItemOrden item;
+    public static itemOrden1 item;
     public static int id_cliente;
     public static String nombre;
     public static String apellido;
@@ -127,8 +127,8 @@ public class DataSistema {
         }
     }
     
-    public boolean addOrden(int idP,int cantidad, Date fecha, double precioEnvio, String tipoEnvio, int diasEnvio){
-        
+    public boolean addOrden(int idP,int cantidad, double precioEnvio, String tipoEnvio, int diasEnvio){
+        Date fecha = new Date();  
         int tam = productos.size();
         for(int i = 0; i < tam; i++ ){
             if(idP == productos.get(i).getId()){
@@ -139,11 +139,11 @@ public class DataSistema {
                 pro.setNombreProducto(productos.get(i).getNombreProducto());
                 pro.setPrecio(productos.get(i).getPrecio());
                 //con la clase item enviaremos el precio del producto y la cantidad para calcular el precio final
-                item = new ItemOrden(cantidad, productos.get(i).getPrecio());
+                item = new itemOrden1(cantidad, productos.get(i).getPrecio());
                 //Creamos una clase Orden la cual nos almacenara todos los datos de las ordenes de compra
-                Orden o = new Orden(fecha,precioEnvio,tipoEnvio,diasEnvio,nombre,apellido,direccion,pro,item);
-                factura.saveOrden(o);
-                orden.add(o);
+                //Orden o = new Orden(fecha,precioEnvio,tipoEnvio,diasEnvio,nombre,apellido,direccion,pro,item);
+                //factura.saveOrden(o);
+                //orden.add(o);
                 JOptionPane.showMessageDialog(null,"Compra Realizada con Exito");
                 return true;
             }

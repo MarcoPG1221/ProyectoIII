@@ -10,6 +10,7 @@ public class Cliente {
     private String nombres;
     private String apellidos;
     private String direccion;
+    private String dpi;
     
     //declaramos un contructor vacio y uno principal
     public Cliente(){
@@ -64,6 +65,15 @@ public class Cliente {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+
+    public String getDpi() {
+        return dpi;
+    }
+
+    public void setDpi(String dpi) {
+        this.dpi = dpi;
+    }
+    
     
     //Declaramos un metodo toString para devolver los valores ingresados
     @Override

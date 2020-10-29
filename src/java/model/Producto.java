@@ -1,18 +1,18 @@
 
 package model;
 
+import DAO.SQL;
 import utils.Utilerias;
 
 public class Producto {
-    
+    private SQL sql = new SQL();
     private int id;
-    private static int sigIdProducto = 2006;
     private String nombreProducto;
     private double precio;
 
     //Creamos un constructor vacio y uno con parámetros
     public Producto(){
-        this.id = sigIdProducto++;
+        this.id = sql.id_incrementableProducto();
     }
     
     public Producto(String nombreProducto, double precio) {

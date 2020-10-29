@@ -79,6 +79,7 @@ public class ProductosDAO {
      * @param nombre
      * @param precio
      * @param buscar
+     * @return 
      */
     public boolean updateProducto(String nombre, double precio, int buscar){
         try {
@@ -86,6 +87,7 @@ public class ProductosDAO {
             statement.executeUpdate(String.format("update productos set nombre = %s,"
                     + "precio = %f where id = %d;","'"+nombre+"'",precio,buscar));
             System.out.println("Se han actualizado los datos exitosamente");
+            
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);

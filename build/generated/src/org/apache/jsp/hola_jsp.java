@@ -51,7 +51,8 @@ public final class hola_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <title>JSP Page</title>\n");
       out.write("    </head>\n");
       out.write("    <body>\n");
-      out.write("        <h1>Hello World!</h1>\n");
+      out.write("        <h1>Hola covidiano marco!</h1>\n");
+      out.write("        <h2>lkjlkjlk</h2>\n");
       out.write("    </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {

@@ -65,4 +65,29 @@ public class SQL {
         }
         return id;
     }
+    
+    public int id_incrementableProducto(){
+        int id = 1;
+        Statement statement = null;
+        ResultSet rs = null;
+        try {
+            statement = BasedeDatos.conn.createStatement();
+            String consulta = " SELECT MAX(id) FROM productos;";
+            rs = statement.executeQuery(consulta);
+            while(rs.next()){
+               id = rs.getInt(1) + 1;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        finally{
+            try{
+                statement.close();
+                rs.close();
+            }catch(Exception e){
+                
+            }
+        }
+        return id;
+    }
 }

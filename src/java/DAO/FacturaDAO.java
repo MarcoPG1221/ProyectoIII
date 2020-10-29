@@ -5,7 +5,6 @@
  */
 package DAO;
 
-import static System.DataSistema.orden;
 import System.Orden;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Individual;
 import utils.BasedeDatos;
 
 /**
@@ -49,13 +47,20 @@ public class FacturaDAO {
         try {
             Statement statement = BasedeDatos.conn.createStatement();
             String dml = "INSERT INTO factura(id_factura,fecha,precio_envio,tipo_envio"
-                    + ",dias_envio,nombre_cliente,apellido_cliente,direccion_cliente,estado) VALUES("+
+                    + ",dias_envio,nombre_cliente,apellido_cliente,direccion_cliente,estado"
+                    + ",codigo_producto,nombre_producto,precio_producto,cantidad) VALUES("+
                     orden.getId() + ",'" + orden.fechaSeteada()+ "'," 
                     + orden.getPrecioEnvio() + ",'" 
                     + orden.getTipoEnvio() + "',"
                     + orden.getDiasEnvio() + ",'" 
-                    + orden.getNombre() + "','" + orden.getApellido() + "','"+ orden.getDireccion() +
-                    "','"+ orden.getEstado() +"')";
+                    + orden.getNombre() + "','" 
+                    + orden.getApellido() + "','"
+                    + orden.getDireccion() + "','"
+                    + orden.getEstado() + "',"
+                    + orden.getCodigo() + ",'"
+                    + orden.getNombre_pro() + "',"
+                    + orden.getPrecio_pro() + "," 
+                    + orden.getCantidad() + ")";
             System.out.println("Cliente Almacenado correctamente a la Base de Datos");
             System.out.println(dml);
             statement.executeUpdate(dml);

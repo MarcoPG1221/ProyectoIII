@@ -1,18 +1,25 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package System;
 
-import utils.Utilerias;
-
-class ItemOrden {
+/**
+ *
+ * @author pc
+ */
+public class itemOrden1 {
     private int noLinea;
     private int cantidad;
     private static int siguienteNoLinea = 1;
     private double producto;
 
-    public ItemOrden(){
+    public itemOrden1(){
         this.noLinea = siguienteNoLinea++;
     }
-    public ItemOrden(int pCantidad, double pldProducto) {
+    
+    public itemOrden1(int pCantidad, double pldProducto) {
         this();
         this.cantidad = pCantidad;
         this.producto = pldProducto;
@@ -38,9 +45,4 @@ class ItemOrden {
     public double getTotalOrden(){
         return (cantidad * producto);
     }
-    
-    public String toString(){
-        return "["+Utilerias.getNombreOrden()+"]" + " No. 0000" + noLinea;
-    }
-    
 }
