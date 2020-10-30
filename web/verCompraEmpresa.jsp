@@ -1,12 +1,12 @@
 <%-- 
-    Document   : ReporteProductos
-    Created on : 25/10/2020, 07:15:12 PM
+    Document   : verCompraEmpresa
+    Created on : 29/10/2020, 04:49:46 PM
     Author     : pc
 --%>
 
-<%@page import="model.Producto"%>
+<%@page import="System.Orden"%>
 <%@page import="java.util.List"%>
-<%@page import="DAO.ProductosDAO"%>
+<%@page import="DAO.FacturaDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -63,38 +63,64 @@
               </ul>
             </div>
           </nav>
-        <div class="form-group col-md-6">
-            <h2>Productos Registrados:</h2>
+        <div class="form-group col-md-8">
+            <h2>Ordenes de Clientes Empresa:</h2>
         </div>
-        <form action="ReporteProductos.jsp" method="POST">
+        <form action="verCompraEmpresa.jsp" method="POST">
         <div class="form-group col-md-6">
         <table class="table table-striped">
             <thead class="thead-dark">
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Código</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Precio</th>
+                <th scope="col">ID_factura</th>
+                <th scope="col">Fecha_Compra</th>
+                <th scope="col">Precio_Envio</th>
+                <th scope="col">Tipo_Envio</th>
+                <th soope="col">Dias_Envio</th>
+                <th scope="col">Nombre_Cliente</th>
+                <th scope="col">Apellido_Cliente</th>
+                <th scope="col">Direccion_Cliente</th>
+                <th scope="col">Contacto</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Codigo</th>
+                <th scope="col">Nombre_producto</th>
+                <th scope="col">Precio_pro</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio_Final</th>
+                <th scope="col">ID_Cliente</th>
               </tr>
             </thead>
             <tbody>
               <%
               //1. Crear una instancia DAO correpondiente a las Clientes
-              ProductosDAO productosDAO = new ProductosDAO();
+              FacturaDAO facturaDAO = new FacturaDAO();
               
               //2. Obtener todas las Clientes de la base de datos
-              List<Producto> productos = productosDAO.getDBProductos();
+              List<Orden> orden1 = facturaDAO.getDBOrdenes1();
               //3. Iterar todas las clientes
               int i=0;
-              for( Producto p : productos){
+              for( Orden o : orden1){
               //4. Pintar el HTML que correponde a cada cliente
                 i++;
               %>
               <tr>
                 <th scope="row"><%=i%></th>
-                <td><%=p.getId() %></td>
-                <td><%=p.getNombreProducto() %></td>
-                <td>Q. <%=p.getPrecio() %></td>
+                <td><%=o.getId() %></td>
+                <td><%=o.fechaSeteada() %></td>
+                <td><%=o.getPrecioEnvio() %></td>
+                <td><%=o.getTipoEnvio() %></td>
+                <td><%=o.getDiasEnvio() %></td>
+                <td><%=o.getNombre() %></td>
+                <td><%=o.getApellido() %></td>
+                <td><%=o.getDireccion() %></td>
+                <td><%=o.getContacto() %></td>
+                <td><%=o.getEstado() %></td>
+                <td><%=o.getCodigo() %></td>
+                <td><%=o.getNombre_pro() %></td>
+                <td>Q. <%=o.getPrecio_pro() %></td>
+                <td><%=o.getCantidad() %></td>
+                <td>Q. <%=o.getTotal() %></td>
+                <td><%=o.getId_cliente() %></td>
               </tr>
               <% 
                }
@@ -103,13 +129,12 @@
           </table>
         </div>
         <%
-            //Creando un metodo para poder eleminar un registro de la base de datos de tipo cliente
             String codigo = request.getParameter("c");
             if(codigo == null){
         %> 
         
             <div class="form-group col-md-2">
-              <label for="c">Eliminar Producto:</label>
+              <label for="c">Eliminar Orden:</label>
               <input type="text" class="form-control" id="c" name="c" placeholder="Ingrese codigo">
             </div>
             <div class="form-group col-md-6">
@@ -118,12 +143,12 @@
         </form>
         <%
             }else{
-                //Mando la variable codigo a productosDAO para poder eleminar este registro y luego
+                //Mando la variable codigo a facturaDAO para poder eleminar este registro y luego
                 //muestro un mensaje en pantalla indicando que fue eliminado
-                productosDAO.deleteProducto(Integer.parseInt(codigo));
+                facturaDAO.deleteCompraEmpresa(Integer.parseInt(codigo));
         %>
             <div class="alert alert-success" role="alert">
-                Se elimino correctamente el producto <a href="ReporteProductos.jsp" class="alert-link">Actualizar</a>. 
+                Se elimino orden correctamente <a href="verCompraEmpresa.jsp" class="alert-link">Actualizar</a>. 
             </div>
         <% 
             }

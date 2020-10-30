@@ -90,4 +90,55 @@ public class SQL {
         }
         return id;
     }
+    
+    
+    public int id_incrementableFactura(){
+        int id = 1;
+        Statement statement = null;
+        ResultSet rs = null;
+        try {
+            statement = BasedeDatos.conn.createStatement();
+            String consulta = " SELECT MAX(id_factura) FROM factura;";
+            rs = statement.executeQuery(consulta);
+            while(rs.next()){
+               id = rs.getInt(1) + 1;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        finally{
+            try{
+                statement.close();
+                rs.close();
+            }catch(Exception e){
+                
+            }
+        }
+        return id;
+    }
+    
+    public int id_incrementableFactura1(){
+        int id = 1;
+        Statement statement = null;
+        ResultSet rs = null;
+        try {
+            statement = BasedeDatos.conn.createStatement();
+            String consulta = " SELECT MAX(id_factura) FROM factura1;";
+            rs = statement.executeQuery(consulta);
+            while(rs.next()){
+               id = rs.getInt(1) + 1;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        finally{
+            try{
+                statement.close();
+                rs.close();
+            }catch(Exception e){
+                
+            }
+        }
+        return id;
+    }
 }

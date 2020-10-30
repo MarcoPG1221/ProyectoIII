@@ -51,8 +51,14 @@
                     <a class="dropdown-item" href="ReporteProductos.jsp">Productos</a>
                   </div>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Compra</a>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Reportes de Ventas
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="verCompra.jsp">Cliente Individual</a>
+                    <a class="dropdown-item" href="verCompraEmpresa.jsp">Cliente Empresa</a>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -83,7 +89,7 @@
             </div>
             <div class="form-group col-md-6">
               <label for="contacto">Contacto:</label>
-              <input type="text" class="form-control" id="contacto" name="contacto" placeholder="Ingrese su documento de idenficacion">
+              <input type="text" class="form-control" id="contacto" name="contacto" placeholder="Ingrese su numero de telefono">
             </div>
             <div class="form-group col-md-6">  
               <button type="submit" class="btn btn-primary">Registrar Cliente</button> 

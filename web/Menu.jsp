@@ -48,14 +48,20 @@
                     <a class="dropdown-item" href="ReporteProductos.jsp">Productos</a>
                   </div>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Compra</a>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Reportes de Ventas
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="verCompra.jsp">Cliente Individual</a>
+                    <a class="dropdown-item" href="verCompraEmpresa.jsp">Cliente Empresa</a>
+                  </div>
                 </li>
               </ul>
             </div>
           </nav> 
         <div class="text-center">
-            <img src="IMAGES/auto.jpg" class="rounded" alt="...">
+            <img src="IMAGES/honda.jpg" class="rounded" alt="...">
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

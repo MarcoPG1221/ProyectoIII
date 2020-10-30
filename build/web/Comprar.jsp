@@ -4,6 +4,7 @@
     Author     : pc
 --%>
 
+<%@page import="model.Empresa"%>
 <%@page import="DAO.FacturaDAO"%>
 <%@page import="model.Individual"%>
 <%@page import="DAO.ClientesDAO"%>
@@ -62,17 +63,19 @@
                     <a class="dropdown-item" href="ReporteProductos.jsp">Productos</a>
                   </div>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="RealizarCompra.jsp">Compra</a>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Reportes de Ventas
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="verCompra.jsp">Cliente Individual</a>
+                    <a class="dropdown-item" href="verCompraEmpresa.jsp">Cliente Empresa</a>
+                  </div>
                 </li>
               </ul>
             </div>
           </nav>
-        <p></p>
-        <br>
-        <h2 align="center"  >Realizar Compra</h2>
-        <br>
-        <p></p>
+          <h2>Realizar Compra</h2>
             <% 
             DataSistema sistema = new DataSistema();
             String id_p = request.getParameter("id_p");
@@ -87,39 +90,39 @@
                     tipoEnvio==null && diaEnvio==null && id_cliente==null){
             %>
             <form action="Comprar.jsp" method="POST">
-            <div  align="center" class="form-group col-md-6">
+            <div class="form-group col-md-6">
               <label for="nombre">Codigo</label>
-              <input type="text" class="form-control" id="id_p" name="id_p" value="<%= id%>" placeholder="Ingrese cantidad">
+              <input type="text" class="form-control" id="id_p" name="id_p" value="<%= id%>" placeholder="Ingrese cantidad" readonly>
             </div>
-            <div align="center" class="form-group col-md-6">
+            <div class="form-group col-md-6">
               <label for="nombre">Nombre Producto</label>
-              <input type="text" class="form-control" id="nombre_pro" name="nombre_pro" value="<%= nombre%>" placeholder="Ingrese cantidad">
+              <input type="text" class="form-control" id="nombre_pro" name="nombre_pro" value="<%= nombre%>" placeholder="Ingrese cantidad" readonly>
             </div>
-            <div align="center" class="form-group col-md-6">
+            <div  class="form-group col-md-6">
               <label for="nombre">Precio</label>
-              <input type="text" class="form-control" id="precio_pro" name="precio_pro" value="<%= precio%>" placeholder="Ingrese cantidad">
+              <input type="text" class="form-control" id="precio_pro" name="precio_pro" value="<%= precio%>" placeholder="Ingrese cantidad" readonly>
             </div>
-            <div align="center" class="form-group col-md-6">
+            <div class="form-group col-md-6">
               <label for="nombre">Cantidad</label>
-              <input type="text" class="form-control" id="cantidad_pro" name="cantidad_pro" placeholder="Ingrese cantidad">
+              <input type="text" class="form-control" id="cantidad_pro" name="cantidad_pro" placeholder="Ingrese cantidad" >
             </div>
-            <div align="center" class="form-group col-md-6">
+            <div class="form-group col-md-6">
               <label for="apellido">Precio Envio</label>
-              <input type="text" class="form-control" id="precioEnvio" name="precioEnvio" placeholder="Ingrese precio envio">
+              <input type="text" class="form-control" id="precioEnvio" name="precioEnvio" placeholder="Ingrese precio envio" >
             </div>
-            <div align="center" class="form-group col-md-6">
+            <div  class="form-group col-md-6">
               <label for="direccion">Tipo Envio</label>
               <input type="text" class="form-control" id="tipoEnvio" name="tipoEnvio" placeholder="Ingrese tipo de envio">
             </div>
-            <div align="center" class="form-group col-md-6">
+            <div class="form-group col-md-6">
               <label for="dpi">Dias de Envio</label>
               <input type="text" class="form-control" id="diaEnvio" name="diaEnvio" placeholder="ingrese los dias">
             </div>
-            <div align="center" class="form-group col-md-6">
+            <div class="form-group col-md-6">
               <label for="dpi">ID Cliente</label>
               <input type="text" class="form-control" id="id_cliente" name="id_cliente" placeholder="ingrese id de cliente">
             </div>
-            <div align="center" class="form-group col-md-6">    
+            <div class="form-group col-md-6">    
               <button type="submit" class="btn btn-primary">Realizar Compra</button> 
             </div>
         </form>
@@ -139,11 +142,29 @@
                         String nombre_cliente = clientes.get(i).getNombres();
                         String apellido = clientes.get(i).getApellidos();
                         String direccion = clientes.get(i).getDireccion();
+                        Double precio_final = Double.parseDouble(precio_pro) * Integer.parseInt(cantidad_pro);
                         //luego guardo la informacion en la clase orden
                         Orden o = new Orden(Double.parseDouble(precioEnvio),tipoEnvio,Integer.parseInt(diaEnvio),
                                             nombre_cliente,apellido,direccion,Integer.parseInt(id_p),nombre_pro,
-                                            Double.parseDouble(precio_pro),Integer.parseInt(cantidad_pro));
-                        facturaDAO.saveOrden(o);
+                                            Double.parseDouble(precio_pro),Integer.parseInt(cantidad_pro),precio_final);
+                        facturaDAO.saveOrden(o,Integer.parseInt(id_cliente));
+                    }
+                }
+
+                List<Empresa> clienteEmpresa = clientesDAO.getDBClienteEmpresa();
+                int tamano = clienteEmpresa.size();
+                for(int i = 0; i < tamano; i++){
+                    if(Integer.parseInt(id_cliente)==clienteEmpresa.get(i).getId()){
+                        String nombre_cliente = clienteEmpresa.get(i).getNombres();
+                        String apellido = clienteEmpresa.get(i).getApellidos();
+                        String direccion = clienteEmpresa.get(i).getDireccion();
+                        String contacto = clienteEmpresa.get(i).getContacto();
+                        Double precio_final = Double.parseDouble(precio_pro) * Integer.parseInt(cantidad_pro);
+                        //luego guardo la informacion en la clase orden
+                        Orden o = new Orden(Double.parseDouble(precioEnvio),tipoEnvio,Integer.parseInt(diaEnvio),
+                                            nombre_cliente,apellido,direccion,contacto,Integer.parseInt(id_p),nombre_pro,
+                                            Double.parseDouble(precio_pro),Integer.parseInt(cantidad_pro),precio_final);
+                        facturaDAO.saveOrdenEmpresa(o,Integer.parseInt(id_cliente));
                     }
                 }
         %>

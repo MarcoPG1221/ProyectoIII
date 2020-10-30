@@ -51,8 +51,14 @@
                     <a class="dropdown-item" href="ReporteProductos.jsp">Productos</a>
                   </div>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Compra</a>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Reportes de Ventas
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="verCompra.jsp">Cliente Individual</a>
+                    <a class="dropdown-item" href="verCompraEmpresa.jsp">Cliente Empresa</a>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -97,6 +103,7 @@
           </table>
         </div>
         <%
+            //Creando un metodo para poder eleminar un registro de la base de datos de tipo cliente
             String codigo = request.getParameter("c");
             if(codigo == null){
         %> 
@@ -111,6 +118,8 @@
         </form>
         <%
             }else{
+                //Mando la variable codigo a productosDAO para poder eleminar este registro y luego
+                //muestro un mensaje en pantalla indicando que fue eliminado
                 productosDAO.deleteProducto(Integer.parseInt(codigo));
         %>
             <div class="alert alert-success" role="alert">

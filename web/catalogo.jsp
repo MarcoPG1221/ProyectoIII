@@ -52,8 +52,14 @@
                     <a class="dropdown-item" href="ReporteProductos.jsp">Productos</a>
                   </div>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Compra</a>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Reportes de Ventas
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="verCompra.jsp">Cliente Individual</a>
+                    <a class="dropdown-item" href="verCompraEmpresa.jsp">Cliente Empresa</a>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -63,22 +69,29 @@
         <h2 align="center"  >Productos Disponibles</h2>
         <br>
         <p></p>
+        <%
+            //Creo una table para poder mostrar los productos disponibles en pantalla
+        %>
         <table border="0" align="center" width="1000">
             <%
+              //Mando a llamar la clase ProductosDAO para obtener los productos en base de datos
               ProductosDAO productosDAO = new ProductosDAO();
+              //los guardo en una lista para poder obtener cada registro
               List<Producto> lista = productosDAO.getDBProductos();
               int salto = 0;
+              //con un for recorro toda la lista de productos
               for (Producto p : lista){
             %>
             <th>
                 <%= p.getNombreProducto() %><br>
                 Q. <%= p.getPrecio() %><p>
-                <a href="">Modificar</a> ||
                 <a href="Comprar.jsp?id=<%= p.getId() %>&nombre=<%= p.getNombreProducto()%>
-                   &precio=<%= p.getPrecio()%>">Añadir</a>
+                   &precio=<%= p.getPrecio()%>">Comprar</a>
             </th>
             <%
+                //aumento la variable salto
                 salto++;
+                //cada vez que salto llege a tres daremos un salto y luego lo volvemos a cero
                 if(salto==3){
             %>
                 <tr>

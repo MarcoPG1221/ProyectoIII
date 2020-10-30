@@ -52,10 +52,15 @@
                     <a class="dropdown-item" href="ReporteProductos.jsp">Productos</a>
                   </div>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Compra</a>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Reportes de Ventas
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="verCompra.jsp">Cliente Individual</a>
+                    <a class="dropdown-item" href="verCompraEmpresa.jsp">Cliente Empresa</a>
+                  </div>
                 </li>
-              </ul>
             </div>
           </nav>
         <div class="form-group col-md-6">
@@ -116,6 +121,8 @@
         </form>
         <%
             }else{
+                //Mando la variable codigo a clientesDAO para poder eleminar este registro y luego
+                //muestro un mensaje en pantalla indicando que fue eliminado
                 clientesDAO.deleteClienteIndividual(Integer.parseInt(codigo));
         %>
             <div class="alert alert-success" role="alert">

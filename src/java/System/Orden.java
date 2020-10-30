@@ -1,16 +1,20 @@
 
 package System;
 
+import DAO.SQL;
 import model.Producto;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import utils.Utilerias;
 
 public class Orden {
+    private SQL sql = new SQL();
     private int id;
+    private int id_cliente;
     private String nombre;
     private String apellido;
     private String direccion;
+    private String contacto;
     private itemOrden1 item1;
     private itemOrden1 item2;
     private Date fechaOrden;
@@ -19,7 +23,6 @@ public class Orden {
     private String tipoEnvio;
     private String estado_Compra= "activo";
     private String estado;
-    private static int sigIdOrden = 1;
     private int diasEnvio;
     private Producto pro;
     private int codigo;
@@ -29,13 +32,13 @@ public class Orden {
     
     //Creamos un primer constructor con solo el id, total y fechaOrden
     public Orden(){
-        this.id = sigIdOrden++;
+        this.id = sql.id_incrementableFactura();
         this.fechaOrden = new Date();
     }
-    
+    //Constructor para guardar los valores en la Base de Datos de cliente individual
     public Orden(double precioEnvio, String tipoEnvio, int diasEnvio,
             String nombre, String apellidos, String direccion, int codigo, String nombre_pro,
-            Double precio_pro, int cantidad){
+            Double precio_pro, int cantidad, double total){
         this(); //llamada al contructor sin parametros
         this.precioEnvio = precioEnvio;
         this.tipoEnvio = tipoEnvio;
@@ -47,10 +50,33 @@ public class Orden {
         this.nombre_pro = nombre_pro;
         this.precio_pro = precio_pro;
         this.cantidad = cantidad;
+        this.total = total;
+    }
+    //Constructor para guardar los valores en la Base de Datos de cliente empresa
+    public Orden(double precioEnvio, String tipoEnvio, int diasEnvio,
+            String nombre, String apellidos, String direccion,String contacto, int codigo, String nombre_pro,
+            Double precio_pro, int cantidad, double total){
+        this.id = sql.id_incrementableFactura1();
+        this.fechaOrden = new Date();
+        this.precioEnvio = precioEnvio;
+        this.tipoEnvio = tipoEnvio;
+        this.diasEnvio = diasEnvio;
+        this.nombre = nombre;
+        this.apellido = apellidos;
+        this.direccion = direccion;
+        this.contacto = contacto;
+        this.codigo = codigo;
+        this.nombre_pro = nombre_pro;
+        this.precio_pro = precio_pro;
+        this.cantidad = cantidad;
+        this.total = total;
+        
     }
     
+    //Constructor para devolver los valores de la Base de Datos de cliente Individual
     public Orden(int id, Date pFecha, double precioEnvio, String tipoEnvio, int diasEnvio,
-            String nombre, String apellidos, String direccion, String estado){
+            String nombre, String apellidos, String direccion, String estado, int codigo, String nombre_pro,
+            Double precio_pro, int cantidad, double total, int id_cliente){
         this.id = id;
         this.fechaOrden = pFecha;
         this.precioEnvio = precioEnvio;
@@ -60,8 +86,43 @@ public class Orden {
         this.apellido = apellidos;
         this.direccion = direccion;
         this.estado_Compra = estado;
-        
+        this.codigo = codigo;
+        this.nombre_pro = nombre_pro;
+        this.precio_pro = precio_pro;
+        this.cantidad = cantidad;
+        this.total = total;
+        this.id_cliente = id_cliente;
     }
+    //Constructor para devolver los valores de la Base de Datos de cliente empresa
+    public Orden(int id, Date pFecha, double precioEnvio, String tipoEnvio, int diasEnvio,
+            String nombre, String apellidos, String direccion, String contacto, String estado, int codigo, String nombre_pro,
+            Double precio_pro, int cantidad, double total, int id_cliente){
+        this.id = id;
+        this.fechaOrden = pFecha;
+        this.precioEnvio = precioEnvio;
+        this.tipoEnvio = tipoEnvio;
+        this.diasEnvio = diasEnvio;
+        this.nombre = nombre;
+        this.apellido = apellidos;
+        this.direccion = direccion;
+        this.contacto = contacto;
+        this.estado_Compra = estado;
+        this.codigo = codigo;
+        this.nombre_pro = nombre_pro;
+        this.precio_pro = precio_pro;
+        this.cantidad = cantidad;
+        this.total = total;
+        this.id_cliente = id_cliente;
+    }
+
+    public int getId_cliente() {
+        return id_cliente;
+    }
+
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
+    }
+    
     public String getNombre() {
         return nombre;
     }
@@ -85,6 +146,15 @@ public class Orden {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+
+    public String getContacto() {
+        return contacto;
+    }
+
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
+    }
+    
     
     public Date getFechaOrden() {
         return fechaOrden;
@@ -182,28 +252,10 @@ public class Orden {
         this.cantidad = cantidad;
     }
     
-    
-    
     public String fechaSeteada(){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String Fechaformateada = sdf.format(fechaOrden);
         return Fechaformateada;
     }
     
-    @Override
-    public String toString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String Fechaformateada = sdf.format(fechaOrden);
-        
-        return  "No. Orden: " + id + "\n["+Utilerias.getNombreClase()+"]\t"
-                +"Nombre: " + nombre + apellido + "\tDireccion: "+ direccion
-                + "\nFecha de Compra: " + Fechaformateada + 
-                "\nPrecio de Envio: Q." + precioEnvio + "\tTipo de Envio: " + tipoEnvio +
-                "\tDias de Envio: " + diasEnvio + " dias" + "\tEstado: " + estado_Compra;
-    }
-    /*
-    +
-                "\nProductos Adquiridos:\n"+ pro + "\tcantidad: "+ item1.getCantidad() +
-                "\nTotal a Pagar: \t\tQ. "+ item1.getTotalOrden() +"\n"
-    */
 }
